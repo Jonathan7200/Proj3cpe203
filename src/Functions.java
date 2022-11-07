@@ -9,6 +9,7 @@ import processing.core.PApplet;
  * by refactoring this codebase to follow an OOP style.
  */
 public final class Functions {
+
     public static final Random rand = new Random();
 
     public static final int COLOR_MASK = 0xffffff;
