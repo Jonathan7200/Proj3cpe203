@@ -5,8 +5,8 @@ import java.util.Optional;
 /**
  * An action that can be taken by an entity
  */
-public final class Action {
-    private ActionKind kind;
+public abstract class Action {
+
     private Entity entity;
     private WorldModel world;
     private ImageStore imageStore;
@@ -15,9 +15,10 @@ public final class Action {
     //Getter
 
 
-    public ActionKind getKind() {
-        return kind;
-    }
+//    public ActionKind getKind() {
+//        return kind;
+//    }
+    // maybe not needed  - add if needed
 
     public Entity getActionEntity() {
         return entity;
@@ -25,8 +26,7 @@ public final class Action {
 
 
 
-    public Action(ActionKind kind, Entity entity, WorldModel world, ImageStore imageStore, int repeatCount) {
-        this.kind = kind;
+    public Action(Entity entity, WorldModel world, ImageStore imageStore, int repeatCount) {
         this.entity = entity;
         this.world = world;
         this.imageStore = imageStore;
@@ -76,13 +76,13 @@ public final class Action {
                 throw new UnsupportedOperationException(String.format("executeActivityAction not supported for %s", this.entity.getKind()));
         }
     }
-    public static Action createAnimationAction(Entity entity, int repeatCount) {
-        return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
-    }
-
-    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
-        return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
-    }
+//    public static Action createAnimationAction(Entity entity, int repeatCount) {
+//        return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
+//    }
+//
+//    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
+//        return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+//    }
 
 
 
