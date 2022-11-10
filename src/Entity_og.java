@@ -9,12 +9,11 @@ import processing.core.PImage;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public final class Entity_og {
-    private EntityKind kind;
-    private String id;
-    private Point position;
-    private List<PImage> images;
-    private int imageIndex;
+public final class Entity_og{
+//    private String id;
+//    private Point position;
+//    private List<PImage> images;
+//    private int imageIndex;
     private int resourceLimit;
     private int resourceCount;
     private double actionPeriod;
@@ -53,26 +52,21 @@ public final class Entity_og {
         this.position = position;
     }
 
-    public Entity(EntityKind kind, String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        this.kind = kind;
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-        this.health = health;
-        this.healthLimit = healthLimit;
-
-
-
-
-
-
-
-    }
+//    public Entity(EntityKind kind, String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
+//        this.kind = kind;
+//        this.id = id;
+//        this.position = position;
+//        this.images = images;
+//        this.imageIndex = 0;
+//        this.resourceLimit = resourceLimit;
+//        this.resourceCount = resourceCount;
+//        this.actionPeriod = actionPeriod;
+//        this.animationPeriod = animationPeriod;
+//        this.health = health;
+//        this.healthLimit = healthLimit;
+//
+//
+//    }
 
     /**
      * Helper method for testing. Preserve this functionality while refactoring.
@@ -367,14 +361,14 @@ public final class Entity_og {
         return new Entity(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0, 0);
     }
 
-    public static PImage getCurrentImage(Object object) {
-        if (object instanceof Background background) {
-            return background.getImages().get(background.getImageIndex());
-        } else if (object instanceof Entity entity) {
-            return entity.images.get(entity.imageIndex % entity.images.size());
-        } else {
-            throw new UnsupportedOperationException(String.format("getCurrentImage not supported for %s", object));
-        }
-    }
+//    public static PImage getCurrentImage(Object object) {
+//        if (object instanceof Background background) {
+//            return background.getImages().get(background.getImageIndex());
+//        } else if (object instanceof Entity entity) {
+//            return entity.images.get(entity.imageIndex % entity.images.size());
+//        } else {
+//            throw new UnsupportedOperationException(String.format("getCurrentImage not supported for %s", object));
+//        }
+//    }
 
     }

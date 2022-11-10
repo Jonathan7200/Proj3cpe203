@@ -10,6 +10,7 @@ public class ActiviyAction extends Action{
 
     @Override
     public void executeAction(EventScheduler scheduler) {
+//        entity.executeActivity(this.world, this.imageStore, scheduler);
         switch (this.entity.getKind()) {
             case SAPLING:
                 this.getActionEntity().executeSaplingActivity(this.world, this.imageStore, scheduler);
