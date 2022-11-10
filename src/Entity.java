@@ -3,10 +3,10 @@ import processing.core.PImage;
 import java.util.List;
 
 public abstract class Entity {
-    private String id;
-    private Point position;
-    private List<PImage> images;
-    private int imageIndex;
+    protected String id;
+    protected Point position;
+    protected List<PImage> images;
+    protected int imageIndex;
 
 
     public Entity(String id, Point position, List<PImage> images) {

@@ -4,4 +4,9 @@ public class Sapling extends Plant {
     public boolean transform() {
         return false;
     }
+
+    @Override
+    public void executeActivity() {
+
+    }
 }

@@ -17,8 +17,17 @@ public class Tree extends Plant{
     private static final int TREE_HEALTH_MAX = 3;
     private static final int TREE_HEALTH_MIN = 1;
 
+    public Tree(String id, Point position, double actionPeriod, double animationPeriod, int health, List<PImage> images){
+        this.id = id;
+        this.position = position;
+        this.actionPeriod = actionPeriod;
+        this.animationPeriod = animationPeriod;
+        this.health = health;
+        this.images = images;
+    }
+
     public static Entity createTree(String id, Point position, double actionPeriod, double animationPeriod, int health, List<PImage> images) {
-        return new Entity(EntityKind.TREE, id, position, images, 0, 0, actionPeriod, animationPeriod, health, 0);
+        return new Tree(id, position, actionPeriod, animationPeriod, health, images);
     }
 
 
@@ -26,7 +35,7 @@ public class Tree extends Plant{
 
     public boolean transform( WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         if (this.health <= 0) {
-            Entity stump = Entity.createStump(Functions.STUMP_KEY + "_" + this.id, this.position, imageStore.getImageList(Functions.STUMP_KEY));
+            Entity stump = new Stump(Functions.STUMP_KEY + "_" + this.id, this.position, imageStore.getImageList(Functions.STUMP_KEY));
 
             world.removeEntity( scheduler, this);
 
@@ -36,5 +45,15 @@ public class Tree extends Plant{
         }
 
         return false;
+    }
+
+
+
+    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+
+        if (!this.transformPlant( world, scheduler, imageStore)) {
+
+            scheduler.scheduleEvent(this, ActivityAction.createActivityAction(this, world, imageStore), this.actionPeriod);
+        }
     }
 }
