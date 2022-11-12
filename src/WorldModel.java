@@ -1,6 +1,7 @@
 import processing.core.PImage;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Represents the 2D World in which this simulation is running.
@@ -90,17 +91,14 @@ public final class WorldModel {
             return Optional.of(nearest);
         }
     }
-
-    public Optional<Entity> findNearest( Point pos, List<EntityKind> kinds) {
+// come back to fix
+    public Optional<Entity> findNearest(Point pos, Predicate<Entity> kinds) {
         List<Entity> ofType = new LinkedList<>();
-        for (EntityKind kind : kinds) {
-            for (Entity entity : this.entities) {
-                if (entity.getKind() == kind) {
-                    ofType.add(entity);
-                }
+        for (Entity entity : this.entities) {
+            if (kinds.test(entity)) {
+                ofType.add(entity);
             }
         }
-
         return nearestEntity(ofType, pos);
     }
 
@@ -163,7 +161,7 @@ public final class WorldModel {
     }
 
     public  void load( Scanner saveFile, ImageStore imageStore, Background defaultBackground){
-        Functions.parseSaveFile(this, saveFile, imageStore, defaultBackground);
+        Parse.parseSaveFile(this, saveFile, imageStore, defaultBackground);
         if(this.background == null){
             this.background = new Background[this.numRows][this.numCols];
             for (Background[] row : this.background)

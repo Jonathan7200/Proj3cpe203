@@ -45,5 +45,10 @@ public abstract class Entity {
         this.position = position;
     }
 
+    public String log(){
+        return this.id.isEmpty() ? null :
+                String.format("%s %d %d %d", this.id, this.position.getX(), this.position.getY(), this.imageIndex);
+    }
+
 }// END of class
 

@@ -1,6 +1,16 @@
-public abstract class Plant extends AbstractAnimated implements Transform {
+import processing.core.PImage;
+
+import java.util.List;
+
+public abstract class Plant extends AbstractAction implements Transform {
     protected int health;
     protected int healthLimit;
+
+    public Plant(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod, int health, int healthLimit) {
+        super(id, position, images, actionPeriod, animationPeriod);
+        this.health = health;
+        this.healthLimit = healthLimit;
+    }
 
     public int getHealth() {
         return health;
@@ -17,16 +27,6 @@ public abstract class Plant extends AbstractAnimated implements Transform {
     }
 
 
-    public boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        if (this.kind == EntityKind.TREE) {
-            return this.transformTree( world, scheduler, imageStore);
-        } else if (this.kind == EntityKind.SAPLING) {
-            return this.transformSapling(world, scheduler, imageStore);
-        } else {
-            throw new UnsupportedOperationException(String.format("transformPlant not supported for %s", this));
-        }
-    }
 
 
-    public abstract void executeActivity();
 }

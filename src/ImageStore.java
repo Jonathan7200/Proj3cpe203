@@ -4,9 +4,13 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public final class ImageStore {
-    private Map<String, List<PImage>> images;
-    private List<PImage> defaultImages;
-
+    public static final int COLOR_MASK = 0xffffff;
+    public static final int KEYED_IMAGE_MIN = 5;
+    public static final int KEYED_RED_IDX = 2;
+    public static final int KEYED_GREEN_IDX = 3;
+    public static final int KEYED_BLUE_IDX = 4;
+    private final Map<String, List<PImage>> images;
+    private final List<PImage> defaultImages;
     public ImageStore(PImage defaultImage) {
         this.images = new HashMap<>();
         defaultImages = new LinkedList<>();
@@ -19,19 +23,22 @@ public final class ImageStore {
             String key = attrs[0];
             PImage img = screen.loadImage(attrs[1]);
             if (img != null && img.width != -1) {
-                List<PImage> imgs = Functions.getImages(images, key);
+                List<PImage> imgs = getImages(images, key);
                 imgs.add(img);
 
-                if (attrs.length >= Functions.KEYED_IMAGE_MIN) {
-                    int r = Integer.parseInt(attrs[Functions.getKeyedRedIdx()]);
-                    int g = Integer.parseInt(attrs[Functions.getKeyedGreenIdx()]);
-                    int b = Integer.parseInt(attrs[Functions.getKeyedBlueIdx()]);
-                    Functions.setAlpha(img, screen.color(r, g, b), 0);
+                if (attrs.length >= KEYED_IMAGE_MIN) {
+                    int r = Integer.parseInt(attrs[KEYED_RED_IDX]);
+                    int g = Integer.parseInt(attrs[KEYED_GREEN_IDX]);
+                    int b = Integer.parseInt(attrs[KEYED_BLUE_IDX]);
+                    setAlpha(img, screen.color(r, g, b), 0);
                 }
             }
         }
     }
 
+    public static List<PImage> getImages(Map<String, List<PImage>> images, String key) {
+        return images.computeIfAbsent(key, k -> new LinkedList<>());
+    }
 
     public  List<PImage> getImageList( String key) {
         return this.images.getOrDefault(key, this.defaultImages);
@@ -47,6 +54,19 @@ public final class ImageStore {
             }
             lineNumber++;
         }
+    }
+
+    public static void setAlpha(PImage img, int maskColor, int alpha) {
+        int alphaValue = alpha << 24;
+        int nonAlpha = maskColor & COLOR_MASK;
+        img.format = PApplet.ARGB;
+        img.loadPixels();
+        for (int i = 0; i < img.pixels.length; i++) {
+            if ((img.pixels[i] & COLOR_MASK) == nonAlpha) {
+                img.pixels[i] = alphaValue | nonAlpha;
+            }
+        }
+        img.updatePixels();
     }
 }
 

@@ -1,4 +1,4 @@
 @FunctionalInterface
 public interface Transform {
-    public boolean transform();
+    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
 }
