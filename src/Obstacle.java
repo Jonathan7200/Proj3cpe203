@@ -12,7 +12,7 @@ public class Obstacle extends AbstractAnimated {
     }
 
 
-    @Override
+
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
 
     }

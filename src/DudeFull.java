@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,19 +11,7 @@ public class DudeFull extends AbstractDude{
     }
 
 
-
-
-    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        DudeNotFull dude = (DudeNotFull) DudeNotFull.createDudeNotFull(this.getId(), this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit(), this.getImages());
-
-        world.removeEntity(scheduler, this);
-
-        world.addEntity(dude);
-        dude.scheduleActions(scheduler, world, imageStore);
-        return true;
-    }
-
-
+//May need to edit this later
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> fullTarget = world.findNearest(this.getPosition(), ((entity -> entity instanceof House))); //ArrayList<>(List.of(EntityKind.HOUSE)//));
 
@@ -32,7 +21,9 @@ public class DudeFull extends AbstractDude{
             scheduler.scheduleEvent(this, new ActivityAction (this, world, imageStore), this.getActionPeriod());
         }
     }
-
+    public static Entity createDudeFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
+        return new DudeFull(id, position, actionPeriod, animationPeriod, resourceLimit, images);
+    }
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         if (Point.adjacent(this.getPosition(), target.getPosition())) {
             return true;
@@ -46,10 +37,15 @@ public class DudeFull extends AbstractDude{
         }
     }
 
-    public static Entity createDudeFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
-        return new DudeFull(id, position, actionPeriod, animationPeriod, resourceLimit, images);
-    }
+    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        DudeNotFull dude = (DudeNotFull) DudeNotFull.createDudeNotFull(this.getId(), this.getPosition(), this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit(), this.getImages());
 
+        world.removeEntity(scheduler, this);
+
+        world.addEntity(dude);
+        dude.scheduleActions(scheduler, world, imageStore);
+        return true;
+    }
 
 
 }
