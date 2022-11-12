@@ -2,22 +2,9 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class AbstractDude extends AbstractAction implements Moveable, Transform{
-
-
-    public AbstractDude(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod) {
-        super(id, position, images, actionPeriod, animationPeriod);
-        this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
-    }
+public abstract class AbstractDude extends AbstractAction implements Moveable{
     protected int resourceLimit;
     protected int resourceCount;
-
-    public void setResourceCount(int resourceCount) {
-        this.resourceCount = resourceCount;
-    }
-
-
 
     public int getResourceCount() {
         return resourceCount;
@@ -27,19 +14,26 @@ public abstract class AbstractDude extends AbstractAction implements Moveable, T
         return resourceLimit;
     }
 
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
+    }
+
+    public void setResourceLimit(int resourceLimit) {
+        this.resourceLimit = resourceLimit;
+    }
+
     public static final String DUDE_KEY = "dude";
     public static final int DUDE_ACTION_PERIOD = 0;
     public static final int DUDE_ANIMATION_PERIOD = 1;
     public static final int DUDE_LIMIT = 2;
     public static final int DUDE_NUM_PROPERTIES = 3;
 
-    @Override
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+
+
+    public AbstractDude(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod) {
+        super(id, position, images, actionPeriod, animationPeriod);
 
     }
-
-
-
 
     public Point nextPosition(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.getX() - this.getPosition().getX());
@@ -57,4 +51,6 @@ public abstract class AbstractDude extends AbstractAction implements Moveable, T
         return newPos;
     }
 
+    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+    public abstract boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler);
 }
