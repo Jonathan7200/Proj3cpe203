@@ -1,6 +1,7 @@
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import processing.data.StringList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -169,7 +170,11 @@ public class WorldTests {
         assertEquals(1, entities.size());
         assertEquals("mydude 0 0 100", entities.get(0));
     }
+public static void main(String[] args){
+    String sav = makeSave(5, 20, "dude mydude 1 1 0.300 100.0 4", "tree  1 2 100.0 0.020 1", "tree  2 2 100.0 0.020 1", "tree  3 2 100.0 0.020 1", "tree  4 2 100.0 0.020 1", "tree  5 2 100.0 0.020 1", "tree  6 2 100.0 0.020 1");
+    VirtualWorld.main(new String[]{sav});
 
+}
     @Test
     public void testDudeLimit() {
         String sav = makeSave(5, 20, "dude mydude 1 1 0.300 100.0 4", "tree  1 2 100.0 0.020 1", "tree  2 2 100.0 0.020 1", "tree  3 2 100.0 0.020 1", "tree  4 2 100.0 0.020 1", "tree  5 2 100.0 0.020 1", "tree  6 2 100.0 0.020 1");

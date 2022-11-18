@@ -13,7 +13,7 @@ public class Obstacle extends AbstractAnimated {
 
 
 
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-
-    }
+//    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+//        scheduler.scheduleEvent(this, new AnimationAction(this, 0), this.getAnimationPeriod());
+//    }
 }

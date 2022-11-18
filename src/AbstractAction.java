@@ -14,15 +14,18 @@ public abstract class AbstractAction extends AbstractAnimated{
     }
 
 
+
+
     public double getActionPeriod() {
         return actionPeriod;
     }
 
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
+    @Override
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, new ActivityAction (this, world, imageStore), this.getActionPeriod());
-        scheduler.scheduleEvent(this, new AnimationAction (this, 0), this.getAnimationPeriod());
+        super.scheduleActions(scheduler, world, imageStore);
+        scheduler.scheduleEvent(this, new ActivityAction(this, world, imageStore), this.actionPeriod);
     }
 
 
